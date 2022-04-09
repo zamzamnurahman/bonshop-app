@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:bonshop/main.dart';
 import 'package:bonshop/theme.dart';
+import 'package:bonshop/login.dart';
+import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -35,14 +37,9 @@ class _SplashScreenState extends State<SplashScreen> {
           ElevatedButton(
 
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HomePage(),
-                ),
-              );
+              Get.off(const HomePage());
             },
-            child: const Text('mulai'),
+            child: const Text("mulai"),
           )
         ],
       )),

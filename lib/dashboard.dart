@@ -1,10 +1,11 @@
 import 'package:bonshop/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class dashboard extends StatefulWidget {
-  String? nama;
-  String? email;
+  final String? nama;
+  final String? email;
   dashboard({Key? key, this.nama, this.email})
       : super(
           key: key,
@@ -47,10 +48,19 @@ class _dashboardState extends State<dashboard> {
                       ),
                     ],
                   ),
-                  Image.asset(
-                    'assets/images/profile.png',
-                    width: 50,
-                    height: 50,
+                  GestureDetector(
+                    onTap: () => Get.to(const profile()),
+                    child: Container(
+                      height: 70,
+                      width: 70,
+                      decoration: BoxDecoration(
+                        color: hijau,
+                        borderRadius: BorderRadius.circular(20),
+                        image: const DecorationImage(
+                            image: AssetImage('assets/images/profile.png'),
+                            fit: BoxFit.cover),
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -58,6 +68,17 @@ class _dashboardState extends State<dashboard> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class profile extends StatelessWidget {
+  const profile({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(child: Text("profile")),
     );
   }
 }

@@ -1,7 +1,9 @@
 import 'package:bonshop/dashboard.dart';
+import 'package:bonshop/main.dart';
 import 'package:bonshop/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
 
 class login extends StatelessWidget {
   login({Key? key}) : super(key: key);
@@ -48,15 +50,9 @@ class login extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => dashboard(
-                        nama: _nama.text,
-                        email: _email.text,
-                      ),
-                    ),
-                  );
+                  print(_email.text);
+                  print(_nama.text);
+                  Get.offAll(() => dashboard());
                 },
                 child: Text(
                   'Login',
