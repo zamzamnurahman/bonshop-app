@@ -1,48 +1,34 @@
-
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter/material.dart';
 import 'package:bonshop/main.dart';
 import 'package:bonshop/theme.dart';
-import 'package:bonshop/login.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class SplashScreen extends StatelessWidget {
+  int? duration = 0;
+  Widget? goToPage;
 
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
+  SplashScreen({this.duration, this.goToPage});
 
-class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(
-            child: Image.asset('assets/images/logo.png'),
-            height: 50,
-            width: double.infinity,
-          ),
-          Text(
-            'Bonshop',
-            style: GoogleFonts.poppins(
-                fontSize: 25, fontWeight: FontWeight.bold, color: hijau),
-          ),
-          const SizedBox(
-            height: 40,
-          ),
-          ElevatedButton(
+    Future.delayed(Duration(seconds: duration!), () => Get.off(goToPage));
 
-            onPressed: () {
-              Get.off(const HomePage());
-            },
-            child: const Text("mulai"),
-          )
-        ],
-      )),
+    return Scaffold(
+      body: Container(
+        color: Colors.white,
+        alignment: Alignment.center,
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Image.asset(
+            'assets/images/logo.png',
+            width: 40,
+            height: 45,
+          ),
+          Text('Bonshop',
+              style: GoogleFonts.poppins(
+                  fontSize: 20, fontWeight: FontWeight.bold, color: hijauTua)),
+        ]),
+      ),
     );
   }
 }

@@ -14,16 +14,33 @@ class login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-          child: Center(
-              child: Container(
-        height: 200,
+      body: Center(
+          child: Container(
+        height: double.infinity,
         width: double.infinity,
         margin: const EdgeInsets.symmetric(horizontal: 50),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Container(
+                height: 50,
+                alignment: Alignment.center,
+                child: Image(
+                  image: AssetImage('assets/images/logo.png'),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Bonshop',
+                style: GoogleFonts.poppins(
+                    fontSize: 20, fontWeight: FontWeight.bold, color: hijauTua),
+              ),
+              SizedBox(
+                height: 25,
+              ),
               TextField(
                 controller: _nama,
                 decoration: InputDecoration(
@@ -46,7 +63,7 @@ class login extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               ElevatedButton(
                 onPressed: () {
@@ -62,7 +79,7 @@ class login extends StatelessWidget {
             ],
           ),
         ),
-      ))),
+      )),
     );
   }
 

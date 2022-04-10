@@ -1,4 +1,6 @@
+import 'package:bonshop/contentPage.dart';
 import 'package:bonshop/login.dart';
+import 'package:bonshop/models/cardContent.dart';
 import 'package:bonshop/spalshscreen.dart';
 import 'package:bonshop/theme.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +21,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const SplashScreen(),
+      home:
+          // ContentPage()
+          SplashScreen(duration: 3, goToPage: ContentPage()),
     );
   }
 }
