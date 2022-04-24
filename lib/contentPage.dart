@@ -121,7 +121,7 @@ class _ContentPageState extends State<ContentPage> {
                                         MediaQuery.of(context).size.width *
                                             index,
                                         duration: Duration(milliseconds: 500),
-                                        curve: Curves.easeInOutCirc,
+                                        curve: Curves.fastOutSlowIn,
                                       );
                                     },
                                     child: Container(
