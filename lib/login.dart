@@ -69,7 +69,9 @@ class login extends StatelessWidget {
                 onPressed: () {
                   print(_email.text);
                   print(_nama.text);
-                  Get.offAll(() => dashboard());
+                  
+                  Get.offAll(
+                      () => dashboard(nama: _nama.text, email: _email.text));
                 },
                 child: Text(
                   'Login',
