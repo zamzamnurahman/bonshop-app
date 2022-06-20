@@ -1,5 +1,6 @@
 import 'package:bonshop_apps/homepage.dart';
 import 'package:bonshop_apps/models/form.dart';
+import 'package:bonshop_apps/models/users.dart';
 import 'package:bonshop_apps/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -13,10 +14,11 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  String? isKlik = '';
   final _nama = TextEditingController();
   final _email = TextEditingController();
   final _pass = TextEditingController();
-  var _ttl;
+  final _ttl = TextEditingController();
 
   @override
   void initState() {
@@ -96,12 +98,49 @@ class _SignUpState extends State<SignUp> {
                 SizedBox(
                   height: 10,
                 ),
+                Visibility(
+                    visible: isKlik == 'kosong',
+                    child: const Center(
+                      child: Text("Harap isi terlebih dahulu form",
+                          style: TextStyle(color: Colors.red)),
+                    )),
+                Visibility(
+                    visible: isKlik == 'sama',
+                    child: const Center(
+                      child: Text(
+                        "Alamat Email sudah terdaftar, Harap Ganti",
+                        style: TextStyle(color: Colors.red),
+                        textAlign: TextAlign.center,
+                      ),
+                    )),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return HomePage();
-                    }));
+                    if (_nama.text == '' &&
+                        _ttl.text == '' &&
+                        _email.text == '' &&
+                        _pass.text == '') {
+                      return setState(() {
+                        isKlik = 'kosong';
+                      });
+                    } else {
+                      if (_email.text == 'admin@bonshop.com') {
+                        return setState(() {
+                          isKlik = "sama";
+                        });
+                      } else {
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) {
+                          return HomePage(
+                            dataUser: User(
+                              nama: _nama.text,
+                              tanggalLahir: _ttl.text,
+                              email: _email.text,
+                              password: _pass.text,
+                            ),
+                          );
+                        }));
+                      }
+                    }
                   },
                   child: Text("Masuk"),
                   style: ElevatedButton.styleFrom(

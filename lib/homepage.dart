@@ -1,18 +1,27 @@
 import 'package:bonshop_apps/detailt_page.dart';
+import 'package:bonshop_apps/keranjang.dart';
 import 'package:bonshop_apps/models/data.dart';
 import 'package:bonshop_apps/models/form.dart';
+import 'package:bonshop_apps/models/users.dart';
+import 'package:bonshop_apps/profile.dart';
 import 'package:bonshop_apps/sheet/data_tanaman.dart';
 import 'package:bonshop_apps/theme.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  User? dataUser;
+  HomePage({Key? key, this.dataUser}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState(
+        dataUser: dataUser,
+      );
 }
 
 class _HomePageState extends State<HomePage> {
+  User? dataUser;
+  _HomePageState({this.dataUser});
+
   List<DataTanamanModel> data = Data.getData();
   var index = 0;
   @override
@@ -28,10 +37,10 @@ class _HomePageState extends State<HomePage> {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text("Selamat Datang,"),
-                    Text("Zamzam Nurahman",
-                        style: TextStyle(
+                  children: [
+                    const Text("Selamat Datang,"),
+                    Text("${dataUser?.nama}",
+                        style: const TextStyle(
                             fontSize: 22,
                             overflow: TextOverflow.ellipsis,
                             fontWeight: FontWeight.bold,
@@ -39,12 +48,35 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              Container(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: Image.asset(
-                  'assets/images/profile.png',
-                  fit: BoxFit.cover,
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return Keranjang();
+                    }));
+                  },
+                  icon: const Icon(
+                    Icons.shopping_bag,
+                    color: kHijau,
+                  )),
+              GestureDetector(
+                onTap: () => Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return Profile();
+                })),
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  height: 50,
+                  width: 50,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                  child: Hero(
+                    tag: 'bonshop',
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      scale: 1,
+                    ),
+                  ),
                 ),
               )
             ],

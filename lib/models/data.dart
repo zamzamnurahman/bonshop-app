@@ -24,3 +24,4 @@ class DataTanamanModel extends StatelessWidget {
     return Scaffold();
   }
 }
+

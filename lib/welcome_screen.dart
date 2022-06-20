@@ -36,14 +36,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   children: List.generate(
                     content.length,
                     (index) => Container(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                         top: 70,
                       ),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Container(
-                              margin: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                 horizontal: 20,
                               ),
                               child: Image.asset(
@@ -51,24 +51,24 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                 horizontal: 20,
                               ),
                               child: Text(
                                 "${content[index].judul}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 24,
                                     fontWeight: FontWeight.bold,
                                     color: kHijau),
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                 horizontal: 20,
                               ),
                               child: Text(
                                 "${content[index].pesan}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 14,
                                 ),
                                 textAlign: TextAlign.center,
@@ -85,7 +85,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        margin: EdgeInsets.only(left: 30),
+                        margin: const EdgeInsets.only(left: 30),
                         child: Row(
                           children: List.generate(
                               content.length,
@@ -94,14 +94,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                       _pageC.animateTo(
                                         MediaQuery.of(context).size.width *
                                             index,
-                                        duration: Duration(milliseconds: 500),
+                                        duration: const Duration(milliseconds: 500),
                                         curve: Curves.fastOutSlowIn,
                                       );
                                     },
                                     child: Container(
                                       width: 20,
                                       height: 20,
-                                      margin: EdgeInsets.symmetric(
+                                      margin: const EdgeInsets.symmetric(
                                         horizontal: 5,
                                       ),
                                       decoration: BoxDecoration(
@@ -130,15 +130,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             height: 70,
                             width: 70,
                             alignment: Alignment.bottomRight,
-                            margin: EdgeInsets.only(bottom: 40, right: 40),
-                            padding: EdgeInsets.symmetric(
+                            margin: const EdgeInsets.only(bottom: 40, right: 40),
+                            padding: const EdgeInsets.symmetric(
                               horizontal: 20,
                             ),
                             decoration: BoxDecoration(
                                 color: Colors.green,
                                 borderRadius: BorderRadius.circular(50)),
-                            child: Center(
-                                child: Icon(Icons.arrow_forward,
+                            child: const Center(
+                                child:  Icon(Icons.arrow_forward,
                                     color: Colors.white, size: 30)),
                           ),
                         ),

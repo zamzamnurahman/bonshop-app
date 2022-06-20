@@ -32,6 +32,33 @@ class Data {
         jenis: "bunga",
         gambar: "image3.png",
       ),
+      DataTanamanModel(
+        id: 4,
+        judul: "Daun Monstera",
+        deskripsi:
+            "Daun Monstrea memili keanehan tetapi bungan hias ini tanpa sadar memiliki keindagan pada batang daun nya yang sangat unik",
+        harga: 22000,
+        jenis: "bonsai",
+        gambar: "image2.png",
+      ),
+      DataTanamanModel(
+        id: 5,
+        judul: "Daun Monstera",
+        deskripsi:
+            "Daun Monstrea memili keanehan tetapi bungan hias ini tanpa sadar memiliki keindagan pada batang daun nya yang sangat unik",
+        harga: 22000,
+        jenis: "bonsai",
+        gambar: "image3.png",
+      ),
+      DataTanamanModel(
+        id: 6,
+        judul: "Daun Monstera",
+        deskripsi:
+            "Daun Monstrea memili keanehan tetapi bungan hias ini tanpa sadar memiliki keindagan pada batang daun nya yang sangat unik",
+        harga: 22000,
+        jenis: "bonsai",
+        gambar: "image4.png",
+      ),
     ];
   }
 }

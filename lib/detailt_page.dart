@@ -1,12 +1,10 @@
 import 'package:bonshop_apps/models/data.dart';
 import 'package:bonshop_apps/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class DetailPage extends StatelessWidget {
   DataTanamanModel data;
-  DetailPage({required this.data});
+  DetailPage({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,32 +30,30 @@ class DetailPage extends StatelessWidget {
                       ))
                 ]),
           ),
-          Container(
+          SizedBox(
             child: Image.asset("assets/images/${data.gambar}"),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
-                child: Row(
-                    children: List.generate(
-                        3,
-                        (index) => Container(
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 5,
-                              ),
-                              height: 70,
-                              width: 70,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: Colors.grey[100],
-                              ),
-                              child: Image.asset(
-                                "assets/images/${data.gambar}",
-                                fit: BoxFit.cover,
-                              ),
-                            ))),
-              ),
+              Row(
+                  children: List.generate(
+                      3,
+                      (index) => Container(
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 5,
+                            ),
+                            height: 70,
+                            width: 70,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.grey[100],
+                            ),
+                            child: Image.asset(
+                              "assets/images/${data.gambar}",
+                              fit: BoxFit.cover,
+                            ),
+                          ))),
               Container(
                 width: 100,
                 height: 40,
@@ -97,7 +93,7 @@ class DetailPage extends StatelessWidget {
                           ),
                           child: const Center(
                             child: Text("+",
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
                                 )),
@@ -120,15 +116,15 @@ class DetailPage extends StatelessWidget {
             child: Text("${data.deskripsi}"),
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: 30, vertical: 70),
+            margin:const  EdgeInsets.symmetric(horizontal: 30, vertical: 70),
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     primary: kHijau,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10))),
                 onPressed: () {},
-                child: Text("+ Tambahkan ke Keranjang")),
+                child: const Text("+ Tambahkan ke Keranjang")),
           )
         ]),
       ),
