@@ -61,9 +61,13 @@ class _LoginPageState extends State<LoginPage> {
                 child: TextFormField(
                   controller: _email,
                   decoration: const InputDecoration(
-                      icon: Icon(Icons.email),
+                      icon: Icon(
+                        Icons.email,
+                        color: kHijauTua,
+                      ),
                       hintText: 'Masukkan Alamat Email',
                       labelText: "Email",
+                      labelStyle: TextStyle(color: kHijau),
                       border: InputBorder.none),
                 ),
               ),
@@ -80,10 +84,14 @@ class _LoginPageState extends State<LoginPage> {
                   controller: _pass,
                   obscureText: true,
                   decoration: const InputDecoration(
-                      icon: Icon(Icons.lock),
+                      icon: Icon(
+                        Icons.lock,
+                        color: kHijauTua,
+                      ),
                       focusColor: kHijau,
                       hintText: 'Masukkan Password',
                       labelText: "Password",
+                      labelStyle: TextStyle(color: kHijau),
                       border: InputBorder.none),
                 ),
               ),
@@ -146,8 +154,8 @@ class _LoginPageState extends State<LoginPage> {
                       )),
                   TextButton(
                       onPressed: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
+                        Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (context) {
                           return const SignUp();
                         }));
                       },

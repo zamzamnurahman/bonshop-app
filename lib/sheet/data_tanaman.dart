@@ -15,7 +15,7 @@ class Data {
       ),
       DataTanamanModel(
         id: 2,
-        judul: "Bunga Daun Taman puring",
+        judul: "Daun puring",
         deskripsi:
             "Bunga Daun Taman puring yang banyak sekali manfaat nya mulai dari daun nya yang bis adijadikan obat dan wangi dari bungan hias ini snagat khas dan banyak yang suka menggunakan pewangi ruangan dengan salah satu tanaman hias ini",
         harga: 20000,
@@ -25,7 +25,7 @@ class Data {
       ),
       DataTanamanModel(
         id: 3,
-        judul: "Daun Monstera",
+        judul: "Daun Kaliki",
         deskripsi:
             "Daun Monstrea memili keanehan tetapi bungan hias ini tanpa sadar memiliki keindagan pada batang daun nya yang sangat unik",
         harga: 22000,
@@ -34,7 +34,7 @@ class Data {
       ),
       DataTanamanModel(
         id: 4,
-        judul: "Daun Monstera",
+        judul: "Daun Hijau QZ",
         deskripsi:
             "Daun Monstrea memili keanehan tetapi bungan hias ini tanpa sadar memiliki keindagan pada batang daun nya yang sangat unik",
         harga: 22000,
@@ -43,7 +43,7 @@ class Data {
       ),
       DataTanamanModel(
         id: 5,
-        judul: "Daun Monstera",
+        judul: "Daun Wangi",
         deskripsi:
             "Daun Monstrea memili keanehan tetapi bungan hias ini tanpa sadar memiliki keindagan pada batang daun nya yang sangat unik",
         harga: 22000,
@@ -52,7 +52,7 @@ class Data {
       ),
       DataTanamanModel(
         id: 6,
-        judul: "Daun Monstera",
+        judul: "Daun Yulisium",
         deskripsi:
             "Daun Monstrea memili keanehan tetapi bungan hias ini tanpa sadar memiliki keindagan pada batang daun nya yang sangat unik",
         harga: 22000,

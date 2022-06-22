@@ -12,4 +12,6 @@ class User {
     this.tanggalLahir,
     this.keranjang,
   });
+
+  get length => null;
 }

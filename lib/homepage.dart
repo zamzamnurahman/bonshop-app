@@ -4,6 +4,7 @@ import 'package:bonshop_apps/models/data.dart';
 import 'package:bonshop_apps/models/form.dart';
 import 'package:bonshop_apps/models/users.dart';
 import 'package:bonshop_apps/profile.dart';
+import 'package:bonshop_apps/searchPage.dart';
 import 'package:bonshop_apps/sheet/data_tanaman.dart';
 import 'package:bonshop_apps/theme.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +63,9 @@ class _HomePageState extends State<HomePage> {
               GestureDetector(
                 onTap: () => Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return Profile();
+                  return Profile(
+                    dataUser: dataUser,
+                  );
                 })),
                 child: Container(
                   padding: EdgeInsets.all(5),
@@ -85,9 +88,15 @@ class _HomePageState extends State<HomePage> {
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: FormInput(
+            function: () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) {
+              return SearchPage();
+            })),
+            readOnly: true,
             icon: const Icon(
               Icons.search,
               size: 30,
+              color: kHijau,
             ),
             label: "Cari Tanaman Terbaik",
             hints: '',

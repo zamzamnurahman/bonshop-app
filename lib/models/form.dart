@@ -1,3 +1,4 @@
+import 'package:bonshop_apps/searchPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -9,9 +10,17 @@ class FormInput extends StatelessWidget {
   Widget? icon;
   String? hints, label;
   bool? isObsecure;
+  bool? readOnly;
+  void Function()? function;
 
   FormInput(
-      {this.controller, this.hints, this.label, this.icon, this.isObsecure});
+      {this.controller,
+      this.hints,
+      this.label,
+      this.icon,
+      this.isObsecure,
+      this.readOnly,
+      this.function});
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +34,16 @@ class FormInput extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextFormField(
+        onTap: function ?? () {},
+        readOnly: readOnly ?? false,
         controller: controller,
         obscureText: isObsecure ?? false,
         decoration: InputDecoration(
             icon: icon,
             hintText: '$hints',
+            hintStyle: TextStyle(color: kHijau),
             labelText: "$label",
+            labelStyle: TextStyle(color: kHijau),
             border: InputBorder.none),
       ),
     );

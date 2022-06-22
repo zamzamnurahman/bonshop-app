@@ -1,4 +1,5 @@
 import 'package:bonshop_apps/homepage.dart';
+import 'package:bonshop_apps/login_page.dart';
 import 'package:bonshop_apps/models/form.dart';
 import 'package:bonshop_apps/models/users.dart';
 import 'package:bonshop_apps/theme.dart';
@@ -21,17 +22,13 @@ class _SignUpState extends State<SignUp> {
   final _ttl = TextEditingController();
 
   @override
-  void initState() {
-    _nama;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: ListView(
         children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 10,
+          ),
           Center(
             child: Image.asset(
               'assets/images/logo.png',
@@ -47,10 +44,12 @@ class _SignUpState extends State<SignUp> {
           const SizedBox(
             height: 20,
           ),
-          const Text(
-            "Daftar",
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 25, color: kHijau),
+          const Center(
+            child: Text(
+              "Daftar",
+              style: TextStyle(
+                  fontWeight: FontWeight.bold, fontSize: 25, color: kHijau),
+            ),
           ),
           const SizedBox(
             height: 10,
@@ -63,17 +62,21 @@ class _SignUpState extends State<SignUp> {
                   controller: _nama,
                   hints: 'Masukkan nama Lengkap',
                   label: 'Nama Lengkap',
-                  icon: const Icon(Icons.person),
+                  icon: const Icon(
+                    Icons.person,
+                    color: kHijauTua,
+                  ),
                 ),
                 const SizedBox(
                   height: 10,
                 ),
                 FormInput(
                   controller: _ttl,
-                  hints: 'Masukkan Tanggal Lahir',
+                  hints: 'contoh : 2001-07-27',
                   label: "Tanggal Lahir",
                   icon: const Icon(
                     Icons.date_range,
+                    color: kHijauTua,
                   ),
                 ),
                 const SizedBox(
@@ -81,9 +84,12 @@ class _SignUpState extends State<SignUp> {
                 ),
                 FormInput(
                   controller: _email,
-                  hints: 'Masukkan Alamat Email',
+                  hints: 'contoh : bonshop@gmail.com',
                   label: "Alamat Email",
-                  icon: const Icon(Icons.email),
+                  icon: const Icon(
+                    Icons.email,
+                    color: kHijauTua,
+                  ),
                 ),
                 const SizedBox(
                   height: 10,
@@ -92,7 +98,10 @@ class _SignUpState extends State<SignUp> {
                   controller: _pass,
                   hints: 'Masukkan Password',
                   label: "Password",
-                  icon: const Icon(Icons.lock),
+                  icon: const Icon(
+                    Icons.lock,
+                    color: kHijauTua,
+                  ),
                   isObsecure: true,
                 ),
                 SizedBox(
@@ -146,6 +155,27 @@ class _SignUpState extends State<SignUp> {
                   style: ElevatedButton.styleFrom(
                     primary: kHijau,
                   ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text("Sudah punya akun? ",
+                        style: TextStyle(
+                          fontSize: 12,
+                        )),
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(builder: (context) {
+                            return LoginPage();
+                          }));
+                        },
+                        child: const Text("Masuk",
+                            style: TextStyle(
+                                fontSize: 12,
+                                color: kHijau,
+                                fontWeight: FontWeight.bold)))
+                  ],
                 )
               ],
             ),
@@ -153,5 +183,14 @@ class _SignUpState extends State<SignUp> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _nama.dispose();
+    _email.dispose();
+    _pass.dispose();
+    _ttl.dispose();
+    super.dispose();
   }
 }
