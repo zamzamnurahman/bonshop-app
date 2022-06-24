@@ -1,3 +1,4 @@
+import 'package:bonshop_apps/homepage.dart';
 import 'package:bonshop_apps/models/data.dart';
 import 'package:bonshop_apps/sheet/data_tanaman.dart';
 import 'package:bonshop_apps/theme.dart';
@@ -13,6 +14,7 @@ class Keranjang extends StatefulWidget {
 }
 
 class _KeranjangState extends State<Keranjang> {
+  String? pembayaran;
   List<DataTanamanModel> data = Data.getData();
   bool? isKlik = false;
   int? totalRupiah = 0;
@@ -60,7 +62,7 @@ class _KeranjangState extends State<Keranjang> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
-              height: isKlik == true ? 300 : 150,
+              height: isKlik == true ? 320 : 150,
               width: double.infinity,
               decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -93,30 +95,53 @@ class _KeranjangState extends State<Keranjang> {
                 Visibility(
                   visible: isKlik == false ? false : true,
                   child: Container(
-                    width: double.infinity,
-                    margin: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        Text("Metode Pembayaran :",
-                            style: TextStyle(
-                                color: kHijau, fontWeight: FontWeight.bold)),
-                        Text("- Cash On Delivery",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold)),
-                        Text("- Mobile Banking",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold)),
-                        Text("- E-Wallet",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold)),
-                      ],
-                    ),
-                  ),
+                      width: double.infinity,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 20),
+                      child: Column(
+                        children: [
+                          const Text("Pembayaran melalui :",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              )),
+                          Row(children: [
+                            Radio<String>(
+                              value: 'COD',
+                              groupValue: pembayaran,
+                              onChanged: (value) {
+                                setState(() {
+                                  pembayaran = value;
+                                });
+                              },
+                            ),
+                            const Text('Cash On Delivery (COD)')
+                          ]),
+                          Row(children: [
+                            Radio<String>(
+                              value: 'e-wallet',
+                              groupValue: pembayaran,
+                              onChanged: (value) {
+                                setState(() {
+                                  pembayaran = value;
+                                });
+                              },
+                            ),
+                            const Text('E-wallet')
+                          ]),
+                          Row(children: [
+                            Radio<String>(
+                              value: 'bank',
+                              groupValue: pembayaran,
+                              onChanged: (value) {
+                                setState(() {
+                                  pembayaran = value;
+                                });
+                              },
+                            ),
+                            const Text('Transfer Bank')
+                          ]),
+                        ],
+                      )),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -149,7 +174,12 @@ class _KeranjangState extends State<Keranjang> {
                             25,
                           ))),
                       onPressed: () {
-                        print(widget.keranjang![0].gambar);
+                        if (pembayaran == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(notif());
+                        } else {
+                          showDialog(
+                              context: context, builder: (context) => sukses());
+                        }
                       },
                       child: const Text("Beli"),
                     )
@@ -161,6 +191,52 @@ class _KeranjangState extends State<Keranjang> {
         ),
       ])),
     );
+  }
+
+  AlertDialog sukses() {
+    return AlertDialog(
+      title: Column(
+        children: [
+          Image.asset(
+            'assets/images/logo.png',
+            height: 50,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const Text('Berhasil Order',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: kHijauTua,
+              )),
+        ],
+      ),
+      elevation: 0,
+      content: const Text(
+        "Terimakasih sudah belanja di Bonshop",
+        textAlign: TextAlign.center,
+      ),
+      actions: [
+        Align(
+          alignment: Alignment.center,
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(primary: kHijau),
+            child: const Text("Oke"),
+          ),
+        )
+      ],
+    );
+  }
+
+  SnackBar notif() {
+    return const SnackBar(
+        content: Text(
+      "Pilih Alat Pembayaran terlebih dahulu, klik tombol panah atas",
+    ));
   }
 }
 
