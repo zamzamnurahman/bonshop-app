@@ -1,13 +1,11 @@
-import 'package:flutter/material.dart';
-
-class DataTanamanModel extends StatelessWidget {
+class DataTanamanModel {
   int? id;
   String? judul;
   String? deskripsi;
   int? harga;
   String? jenis;
   String? gambar;
-  String? subGambar;
+  List? subGambar;
 
   DataTanamanModel({
     this.id,
@@ -18,10 +16,4 @@ class DataTanamanModel extends StatelessWidget {
     this.gambar,
     this.subGambar,
   });
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
-  }
 }
-

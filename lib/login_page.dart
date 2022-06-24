@@ -170,4 +170,11 @@ class _LoginPageState extends State<LoginPage> {
           )),
     );
   }
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _pass.dispose();
+    super.dispose();
+  }
 }

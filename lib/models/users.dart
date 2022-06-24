@@ -3,7 +3,7 @@ class User {
   String? email;
   String? password;
   String? tanggalLahir;
-  List<String>? keranjang;
+  List? keranjang;
 
   User({
     this.nama,
@@ -12,6 +12,4 @@ class User {
     this.tanggalLahir,
     this.keranjang,
   });
-
-  get length => null;
 }

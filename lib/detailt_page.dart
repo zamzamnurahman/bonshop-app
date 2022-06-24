@@ -12,8 +12,13 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  List? keranjang = [];
+  List? total = [];
+
+  String? gambar;
   bool isKlik = false;
   int? jumlah = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,10 +29,17 @@ class _DetailPageState extends State<DetailPage> {
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) {
-                    return Keranjang();
-                  }));
+                  if (keranjang!.length > 0) {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return Keranjang(
+                        keranjang: keranjang,
+                        total: total,
+                      );
+                    }));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(notif());
+                  }
                 },
                 icon: const Icon(
                   Icons.shopping_bag,
@@ -41,27 +53,43 @@ class _DetailPageState extends State<DetailPage> {
               height: MediaQuery.of(context).size.height,
               child: ListView(children: [
                 SizedBox(
-                  child: Image.asset("assets/images/${widget.data.gambar}"),
+                  height: 300,
+                  child: Image.asset(
+                    gambar == null
+                        ? "assets/images/${widget.data.gambar}"
+                        : gambar.toString(),
+                    fit: BoxFit.contain,
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Row(
                         children: List.generate(
-                            3,
-                            (index) => Container(
-                                  margin: const EdgeInsets.symmetric(
-                                    horizontal: 5,
-                                  ),
-                                  height: 70,
-                                  width: 70,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Colors.grey[100],
-                                  ),
-                                  child: Image.asset(
-                                    "assets/images/${widget.data.gambar}",
-                                    fit: BoxFit.cover,
+                            widget.data.subGambar!.length,
+                            (index) => GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      gambar =
+                                          "assets/images/${widget.data.subGambar![index]}";
+                                    });
+                                  },
+                                  child: Container(
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 5,
+                                    ),
+                                    height: 70,
+                                    width: 70,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Colors.grey[100],
+                                    ),
+                                    child: Image.asset(
+                                      widget.data.subGambar!.isNotEmpty
+                                          ? "assets/images/${widget.data.subGambar![index]}"
+                                          : widget.data.gambar.toString(),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ))),
                     Container(
@@ -129,7 +157,7 @@ class _DetailPageState extends State<DetailPage> {
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                   child: Text("${widget.data.judul}",
                       style: const TextStyle(
                         fontSize: 25,
@@ -138,12 +166,21 @@ class _DetailPageState extends State<DetailPage> {
                       )),
                 ),
                 Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  child: Text("Rp.${widget.data.harga}",
+                      style: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                      )),
+                ),
+                Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text("${widget.data.deskripsi}"),
                 ),
                 const SizedBox(
                   height: 100,
-                )
+                ),
               ]),
             ),
             Center(
@@ -160,9 +197,36 @@ class _DetailPageState extends State<DetailPage> {
                                 borderRadius:
                                     BorderRadius.circular(!isKlik ? 10 : 50))),
                         onPressed: () {
-                          setState(() {
-                            isKlik = !isKlik ? true : false;
-                          });
+                          if (isKlik) {
+                            keranjang = [];
+                            total = [];
+
+                            setState(() {
+                              isKlik = false;
+                            });
+                          } else {
+                            if (jumlah! > 0) {
+                              setState(() {
+                                isKlik = true;
+                              });
+                              for (int i = 0; i < jumlah!; i++) {
+                                keranjang!.add(widget.data);
+                                total!.add(widget.data.harga);
+                              }
+                              print(
+                                "Berhasil di tambahkan ke keranjang!",
+                              );
+                              showDialog(
+                                  context: context,
+                                  builder: (context) => sukses());
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(notif());
+                            }
+                          }
+
+                          print(keranjang);
+                          print(total);
                         },
                         child: Text(
                           !isKlik ? "+ Tambahkan ke Keranjang" : "X",
@@ -175,5 +239,51 @@ class _DetailPageState extends State<DetailPage> {
         ),
       ),
     );
+  }
+
+  AlertDialog sukses() {
+    return AlertDialog(
+      title: Column(
+        children: [
+          Image.asset(
+            'assets/images/logo.png',
+            height: 50,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const Text('Berhasil di tambahkan',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: kHijauTua,
+              )),
+        ],
+      ),
+      elevation: 0,
+      content: const Text(
+        "Silahkan Checkout di bagian Menu keranjang",
+        textAlign: TextAlign.center,
+      ),
+      actions: [
+        Align(
+          alignment: Alignment.center,
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            style: ElevatedButton.styleFrom(primary: kHijau),
+            child: const Text("Oke"),
+          ),
+        )
+      ],
+    );
+  }
+
+  SnackBar notif() {
+    return const SnackBar(
+        content: Text(
+      "Isi jumlah yang ingin di masukkan ke Keranjang",
+    ));
   }
 }

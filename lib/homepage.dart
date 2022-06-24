@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   _HomePageState({this.dataUser});
 
   List<DataTanamanModel> data = Data.getData();
+
   var index = 0;
   @override
   Widget build(BuildContext context) {
@@ -45,21 +46,10 @@ class _HomePageState extends State<HomePage> {
                             fontSize: 22,
                             overflow: TextOverflow.ellipsis,
                             fontWeight: FontWeight.bold,
-                            color: kHijau)),
+                            color: kHijauTua)),
                   ],
                 ),
               ),
-              IconButton(
-                  onPressed: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return Keranjang();
-                    }));
-                  },
-                  icon: const Icon(
-                    Icons.shopping_bag,
-                    color: kHijau,
-                  )),
               GestureDetector(
                 onTap: () => Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {

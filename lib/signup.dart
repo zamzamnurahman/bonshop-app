@@ -4,8 +4,7 @@ import 'package:bonshop_apps/models/form.dart';
 import 'package:bonshop_apps/models/users.dart';
 import 'package:bonshop_apps/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'dart:async';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -19,7 +18,21 @@ class _SignUpState extends State<SignUp> {
   final _nama = TextEditingController();
   final _email = TextEditingController();
   final _pass = TextEditingController();
-  final _ttl = TextEditingController();
+  DateTime? currentDate;
+
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1980),
+      lastDate: DateTime(2045),
+    );
+    if (pickedDate != null && pickedDate != currentDate) {
+      setState(() {
+        currentDate = pickedDate;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,9 +84,14 @@ class _SignUpState extends State<SignUp> {
                   height: 10,
                 ),
                 FormInput(
-                  controller: _ttl,
-                  hints: 'contoh : 2001-07-27',
-                  label: "Tanggal Lahir",
+                  hints: currentDate == null
+                      ? 'Pilih Tanggal Lahir'
+                      : currentDate.toString().substring(0, 10),
+                  label: currentDate == null
+                      ? 'Tanggal Lahir'
+                      : currentDate.toString().substring(0, 10),
+                  readOnly: true,
+                  function: () => _selectDate(context),
                   icon: const Icon(
                     Icons.date_range,
                     color: kHijauTua,
@@ -84,7 +102,7 @@ class _SignUpState extends State<SignUp> {
                 ),
                 FormInput(
                   controller: _email,
-                  hints: 'contoh : bonshop@gmail.com',
+                  hints: 'bonshop@gmail.com',
                   label: "Alamat Email",
                   icon: const Icon(
                     Icons.email,
@@ -104,7 +122,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   isObsecure: true,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Visibility(
@@ -125,7 +143,6 @@ class _SignUpState extends State<SignUp> {
                 ElevatedButton(
                   onPressed: () {
                     if (_nama.text == '' &&
-                        _ttl.text == '' &&
                         _email.text == '' &&
                         _pass.text == '') {
                       return setState(() {
@@ -142,7 +159,8 @@ class _SignUpState extends State<SignUp> {
                           return HomePage(
                             dataUser: User(
                               nama: _nama.text,
-                              tanggalLahir: _ttl.text,
+                              tanggalLahir:
+                                  currentDate.toString().substring(0, 10),
                               email: _email.text,
                               password: _pass.text,
                             ),
@@ -151,10 +169,10 @@ class _SignUpState extends State<SignUp> {
                       }
                     }
                   },
-                  child: Text("Masuk"),
                   style: ElevatedButton.styleFrom(
                     primary: kHijau,
                   ),
+                  child: const Text("Daftar"),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -190,7 +208,6 @@ class _SignUpState extends State<SignUp> {
     _nama.dispose();
     _email.dispose();
     _pass.dispose();
-    _ttl.dispose();
     super.dispose();
   }
 }

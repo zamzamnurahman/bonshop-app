@@ -4,7 +4,9 @@ import 'package:bonshop_apps/theme.dart';
 import 'package:flutter/material.dart';
 
 class Keranjang extends StatefulWidget {
-  const Keranjang({Key? key}) : super(key: key);
+  List? keranjang;
+  List? total;
+  Keranjang({Key? key, this.keranjang, this.total}) : super(key: key);
 
   @override
   State<Keranjang> createState() => _KeranjangState();
@@ -13,6 +15,7 @@ class Keranjang extends StatefulWidget {
 class _KeranjangState extends State<Keranjang> {
   List<DataTanamanModel> data = Data.getData();
   bool? isKlik = false;
+  int? totalRupiah = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,15 +43,14 @@ class _KeranjangState extends State<Keranjang> {
               ),
             ),
             Container(
-              height: 700,
-              margin: EdgeInsets.only(bottom: 100),
+              margin: const EdgeInsets.only(bottom: 200),
               child: Column(
                 children: List.generate(
-                    data.length,
+                    widget.keranjang!.length,
                     (index) => ListKeranjang(
-                          gambar: '${data[index].gambar}',
-                          nama: '${data[index].judul}',
-                          harga: '${data[index].harga}',
+                          gambar: '${widget.keranjang?[index].gambar}',
+                          nama: '${widget.keranjang?[index].judul}',
+                          harga: '${widget.keranjang?[index].harga}',
                         )),
               ),
             )
@@ -119,15 +121,16 @@ class _KeranjangState extends State<Keranjang> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const Text.rich(TextSpan(children: [
-                      TextSpan(
+                    Text.rich(TextSpan(children: [
+                      const TextSpan(
                           text: 'total : ',
                           style: TextStyle(
                             fontSize: 18,
                           )),
                       TextSpan(
-                          text: 'Rp: total Rupiah',
-                          style: TextStyle(
+                          text:
+                              'Rp: ${widget.total![0] * widget.total!.length}',
+                          style: const TextStyle(
                             fontSize: 20,
                             overflow: TextOverflow.ellipsis,
                             fontWeight: FontWeight.bold,
@@ -145,7 +148,9 @@ class _KeranjangState extends State<Keranjang> {
                               borderRadius: BorderRadius.circular(
                             25,
                           ))),
-                      onPressed: () {},
+                      onPressed: () {
+                        print(widget.keranjang![0].gambar);
+                      },
                       child: const Text("Beli"),
                     )
                   ],
@@ -159,7 +164,7 @@ class _KeranjangState extends State<Keranjang> {
   }
 }
 
-class ListKeranjang extends StatefulWidget {
+class ListKeranjang extends StatelessWidget {
   String? gambar, nama, harga;
   int? jumlah;
 
@@ -172,28 +177,8 @@ class ListKeranjang extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ListKeranjang> createState() => _ListKeranjangState(
-        gambar: gambar,
-        nama: nama,
-        harga: harga,
-        jumlah: jumlah,
-      );
-}
-
-class _ListKeranjangState extends State<ListKeranjang> {
-  String? gambar, nama, harga;
-  int? jumlah;
-  _ListKeranjangState({
-    this.gambar,
-    this.nama,
-    this.harga,
-    this.jumlah,
-  });
-
-  @override
   Widget build(BuildContext context) {
-    int? jumlahBeli = 0;
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: Row(
         children: [
@@ -202,12 +187,18 @@ class _ListKeranjangState extends State<ListKeranjang> {
                 margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.grey[100]),
+                    color: Colors.grey[100],
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Colors.black12,
+                          offset: Offset(3, 2),
+                          blurRadius: 5)
+                    ]),
                 child: Padding(
                   padding: const EdgeInsets.all(15),
                   child: Row(
                     children: [
-                      Container(
+                      SizedBox(
                         height: 50,
                         width: 50,
                         child: Image.asset('assets/images/$gambar'),
@@ -230,61 +221,6 @@ class _ListKeranjangState extends State<ListKeranjang> {
                   ),
                 )),
           ),
-          Container(
-            width: 100,
-            height: 40,
-            margin: EdgeInsets.only(right: 10),
-            padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 5),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.grey[200],
-            ),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                      height: 25,
-                      width: 25,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: Colors.white,
-                      ),
-                      child: const Center(
-                        child: Text("-",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            )),
-                      )),
-                  Text("${(jumlahBeli)}",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      )),
-                  GestureDetector(
-                    onTap: () {
-                      print('tambah');
-                      setState(() {
-                        jumlahBeli = jumlahBeli! + 1;
-                      });
-                    },
-                    child: Container(
-                        height: 25,
-                        width: 25,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.white,
-                        ),
-                        child: const Center(
-                          child: Text("+",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              )),
-                        )),
-                  )
-                ]),
-          )
         ],
       ),
     );

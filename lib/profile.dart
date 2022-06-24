@@ -116,7 +116,7 @@ class Profile extends StatelessWidget {
                           ],
                           borderRadius: BorderRadius.circular(10)),
                       child: const Text(
-                        "Alamat sesuai KTP",
+                        "Indonesia",
                         style: TextStyle(fontSize: 16),
                         textAlign: TextAlign.center,
                       ),
